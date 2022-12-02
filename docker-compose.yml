@@ -1,0 +1,31 @@
+version: "3.1"
+
+services:
+  db:
+    container_name: forum-database
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=forum_source
+    networks:
+      - mysql-network
+    volumes:
+      - mysql-data:/var/lib/data/mysql
+    ports:
+      - "3306:3306"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8085:8080"
+    networks:
+      - mysql-network
+
+networks:
+  mysql-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
