@@ -25,17 +25,19 @@ public class TopicoController {
     private BuscarTopicoPorNome buscarTopicoPorNome;
     private BuscarTopicoPorId buscarTopicoPorId;
     private AtualizarTopico atualizarTopico;
+    private DeletarTopico deletarTopico;
 
     @Autowired
     public TopicoController(CriarNovoTopico criarNovoTopico,
                             BuscarTodosTopicos buscarTodosTopicos,
                             BuscarTopicoPorNome buscarTopicoPorNome,
-                            BuscarTopicoPorId buscarTopicoPorId, AtualizarTopico atualizarTopico) {
+                            BuscarTopicoPorId buscarTopicoPorId, AtualizarTopico atualizarTopico, DeletarTopico deletarTopico) {
         this.criarNovoTopico = criarNovoTopico;
         this.buscarTodosTopicos = buscarTodosTopicos;
         this.buscarTopicoPorNome = buscarTopicoPorNome;
         this.buscarTopicoPorId = buscarTopicoPorId;
         this.atualizarTopico = atualizarTopico;
+        this.deletarTopico = deletarTopico;
     }
 
     @PostMapping(produces = "application/json")
@@ -66,8 +68,14 @@ public class TopicoController {
     }
 
     @PutMapping(path = "/{id}/atualizar",produces = "application/json")
-    public ResponseEntity<?> atualizarTopico(@RequestBody @Valid AtualizarTopicoRequest request, @PathVariable("id") Long id) {
+    public ResponseEntity<String> atualizarTopico(@RequestBody @Valid AtualizarTopicoRequest request, @PathVariable("id") Long id) {
         TopicoResponse response = atualizarTopico.execute(request, id);
         return ResponseEntity.ok().body("Topico atualizado com sucesso!");
+    }
+
+    @DeleteMapping(path = "/{id}/deletar", produces = "application/json")
+    public ResponseEntity<String> deletarTopico(@PathVariable("id") Long id) {
+        deletarTopico.execute(id);
+        return ResponseEntity.ok().body("Topico deletado com sucesso!");
     }
 }
