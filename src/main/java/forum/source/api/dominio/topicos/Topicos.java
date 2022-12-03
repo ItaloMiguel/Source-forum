@@ -41,4 +41,15 @@ public class Topicos {
         this.finalized = false;
         this.status = TopicoStatus.NAO_SOLUCIONADO;
     }
+
+    public Topicos(Long id, String titulo, String autor, String mensagem, String imagem) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.mensagem = mensagem;
+        this.imagem = imagem;
+        this.dataCriacao = LocalDateTime.now();
+        this.finalized = false;
+        this.status = TopicoStatus.NAO_SOLUCIONADO;
+    }
 }
