@@ -1,5 +1,6 @@
 package forum.source.api.dominio.topicos;
 
+import forum.source.api.aplicacao.topicos.payload.AtualizarTopicoRequest;
 import forum.source.api.aplicacao.topicos.payload.CriarNovoTopicoRequest;
 import forum.source.api.dominio.users.UserModel;
 import jakarta.persistence.*;
@@ -51,5 +52,16 @@ public class Topicos {
         this.dataCriacao = LocalDateTime.now();
         this.finalized = false;
         this.status = TopicoStatus.NAO_SOLUCIONADO;
+    }
+    public void atualizar(AtualizarTopicoRequest request) {
+        if(request.titulo() != null) {
+            this.titulo = request.titulo();
+        }
+        if(request.mensagem() != null) {
+            this.mensagem = request.mensagem();
+        }
+        if(request.imagem() != null) {
+            this.imagem = request.imagem();
+        }
     }
 }

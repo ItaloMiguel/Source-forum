@@ -1,6 +1,7 @@
 package forum.source.api.dominio.topicos;
 
 import ch.qos.logback.classic.spi.LoggingEventVO;
+import forum.source.api.aplicacao.topicos.payload.AtualizarTopicoRequest;
 import forum.source.api.aplicacao.topicos.payload.CriarNovoTopicoRequest;
 import forum.source.api.dominio.users.UserModel;
 

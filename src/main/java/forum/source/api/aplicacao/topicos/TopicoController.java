@@ -1,12 +1,11 @@
 package forum.source.api.aplicacao.topicos;
 
+import forum.source.api.aplicacao.topicos.payload.AtualizarTopicoRequest;
 import forum.source.api.aplicacao.topicos.payload.CriarNovoTopicoRequest;
 import forum.source.api.aplicacao.topicos.payload.ProcurarTopicoRequest;
 import forum.source.api.aplicacao.topicos.payload.TopicoResponse;
-import forum.source.api.dominio.topicos.service.BuscarTopicoPorNome;
-import forum.source.api.dominio.topicos.service.CriarNovoTopico;
-import forum.source.api.dominio.topicos.service.BuscarTodosTopicos;
-import forum.source.api.dominio.topicos.service.BuscarTopicoPorId;
+import forum.source.api.dominio.topicos.service.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,20 +24,22 @@ public class TopicoController {
     private BuscarTodosTopicos buscarTodosTopicos;
     private BuscarTopicoPorNome buscarTopicoPorNome;
     private BuscarTopicoPorId buscarTopicoPorId;
+    private AtualizarTopico atualizarTopico;
 
     @Autowired
     public TopicoController(CriarNovoTopico criarNovoTopico,
                             BuscarTodosTopicos buscarTodosTopicos,
                             BuscarTopicoPorNome buscarTopicoPorNome,
-                            BuscarTopicoPorId buscarTopicoPorId) {
+                            BuscarTopicoPorId buscarTopicoPorId, AtualizarTopico atualizarTopico) {
         this.criarNovoTopico = criarNovoTopico;
         this.buscarTodosTopicos = buscarTodosTopicos;
         this.buscarTopicoPorNome = buscarTopicoPorNome;
         this.buscarTopicoPorId = buscarTopicoPorId;
+        this.atualizarTopico = atualizarTopico;
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<String> adicionarTopicos(@RequestBody CriarNovoTopicoRequest request) {
+    public ResponseEntity<String> adicionarTopicos(@RequestBody @Valid CriarNovoTopicoRequest request) {
         criarNovoTopico.execute(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("Tópico criado com sucesso!");
     }
@@ -62,5 +63,11 @@ public class TopicoController {
     public ResponseEntity<TopicoResponse> detalharTopico(@PathVariable("id") Long id) {
         TopicoResponse response = buscarTopicoPorId.execute(id);
         return ResponseEntity.ok().body(response);
+    }
+
+    @PutMapping(path = "/{id}/atualizar",produces = "application/json")
+    public ResponseEntity<?> atualizarTopico(@RequestBody @Valid AtualizarTopicoRequest request, @PathVariable("id") Long id) {
+        TopicoResponse response = atualizarTopico.execute(request, id);
+        return ResponseEntity.ok().body("Topico atualizado com sucesso!");
     }
 }
