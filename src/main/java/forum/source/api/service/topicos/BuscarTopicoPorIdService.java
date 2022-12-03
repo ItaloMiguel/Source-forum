@@ -1,6 +1,7 @@
 package forum.source.api.service.topicos;
 
 import forum.source.api.aplicacao.exceptions.IdNotFoundException;
+import forum.source.api.aplicacao.topicos.payload.DetalharTopicoResponse;
 import forum.source.api.aplicacao.topicos.payload.TopicoResponse;
 import forum.source.api.dominio.topicos.Topicos;
 import forum.source.api.dominio.topicos.service.BuscarTopicoPorId;
@@ -22,9 +23,9 @@ public class BuscarTopicoPorIdService implements BuscarTopicoPorId {
 
 
     @Override
-    public TopicoResponse execute(Long id) {
+    public DetalharTopicoResponse execute(Long id) {
         Topicos topicos = topicosRepository.findById(id)
                 .orElseThrow(() -> new IdNotFoundException(id.toString()));
-        return new TopicoResponse(topicos);
+        return new DetalharTopicoResponse(topicos);
     }
 }

@@ -1,4 +1,9 @@
 package forum.source.api.aplicacao.topicos.payload;
 
-public record ProcurarTopicoRequest(String title) {
+import jakarta.validation.constraints.Size;
+
+public record ProcurarTopicoRequest(
+        @Size(min = 5, max = 80)
+        String title
+) {
 }

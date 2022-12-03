@@ -1,9 +1,6 @@
 package forum.source.api.aplicacao.topicos;
 
-import forum.source.api.aplicacao.topicos.payload.AtualizarTopicoRequest;
-import forum.source.api.aplicacao.topicos.payload.CriarNovoTopicoRequest;
-import forum.source.api.aplicacao.topicos.payload.ProcurarTopicoRequest;
-import forum.source.api.aplicacao.topicos.payload.TopicoResponse;
+import forum.source.api.aplicacao.topicos.payload.*;
 import forum.source.api.dominio.topicos.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,14 +53,14 @@ public class TopicoController {
     @GetMapping(path = "/procurar", produces = "application/json")
     public ResponseEntity<Page<TopicoResponse>> buscarPorTitulo(
             @PageableDefault(sort = {"dataCriacao"}, direction = Sort.Direction.DESC, size = 5) Pageable paginacao,
-            @RequestBody ProcurarTopicoRequest request) {
+            @RequestBody @Valid ProcurarTopicoRequest request) {
         Page<TopicoResponse> response = buscarTopicoPorNome.execute(request, paginacao);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping(path = "/{id}/procurar", produces = "application/json")
-    public ResponseEntity<TopicoResponse> detalharTopico(@PathVariable("id") Long id) {
-        TopicoResponse response = buscarTopicoPorId.execute(id);
+    public ResponseEntity<DetalharTopicoResponse> detalharTopico(@PathVariable("id") Long id) {
+        DetalharTopicoResponse response = buscarTopicoPorId.execute(id);
         return ResponseEntity.ok().body(response);
     }
 
