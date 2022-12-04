@@ -2,7 +2,6 @@ package forum.source.api.aplicacao.topicos;
 
 import forum.source.api.aplicacao.topicos.payload.*;
 import forum.source.api.dominio.topicos.service.*;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +10,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/topicos")
@@ -50,29 +51,29 @@ public class TopicoController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping(path = "/procurar", produces = "application/json")
-    public ResponseEntity<Page<TopicoResponse>> buscarPorTitulo(
-            @PageableDefault(sort = {"dataCriacao"}, direction = Sort.Direction.DESC, size = 5) Pageable paginacao,
-            @RequestBody @Valid ProcurarTopicoRequest request) {
-        Page<TopicoResponse> response = buscarTopicoPorNome.execute(request, paginacao);
-        return ResponseEntity.ok().body(response);
-    }
-
-    @GetMapping(path = "/{id}/procurar", produces = "application/json")
+    @GetMapping(path = "/{id}", produces = "application/json")
     public ResponseEntity<DetalharTopicoResponse> detalharTopico(@PathVariable("id") Long id) {
         DetalharTopicoResponse response = buscarTopicoPorId.execute(id);
         return ResponseEntity.ok().body(response);
     }
 
-    @PutMapping(path = "/{id}/atualizar",produces = "application/json")
+    @PutMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<String> atualizarTopico(@RequestBody @Valid AtualizarTopicoRequest request, @PathVariable("id") Long id) {
         TopicoResponse response = atualizarTopico.execute(request, id);
         return ResponseEntity.ok().body("Topico atualizado com sucesso!");
     }
 
-    @DeleteMapping(path = "/{id}/deletar", produces = "application/json")
+    @DeleteMapping(path = "/{id}", produces = "application/json")
     public ResponseEntity<String> deletarTopico(@PathVariable("id") Long id) {
         deletarTopico.execute(id);
         return ResponseEntity.ok().body("Topico deletado com sucesso!");
+    }
+
+    @GetMapping(path = "/procurar", produces = "application/json")
+    public ResponseEntity<Page<TopicoResponse>> buscarTopicoPorTitulo(
+            @PageableDefault(sort = {"dataCriacao"}, direction = Sort.Direction.DESC, size = 5) Pageable paginacao,
+            @RequestBody @Valid ProcurarTopicoRequest request) {
+        Page<TopicoResponse> response = buscarTopicoPorNome.execute(request, paginacao);
+        return ResponseEntity.ok().body(response);
     }
 }

@@ -2,10 +2,9 @@ package forum.source.api.dominio.topicos;
 
 import forum.source.api.aplicacao.topicos.payload.AtualizarTopicoRequest;
 import forum.source.api.aplicacao.topicos.payload.CriarNovoTopicoRequest;
-import forum.source.api.dominio.users.UserModel;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,8 @@ import java.util.List;
 @Table(name = "topicos")
 public class Topicos {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
     private String autor;

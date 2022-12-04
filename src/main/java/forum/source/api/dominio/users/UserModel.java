@@ -1,9 +1,9 @@
 package forum.source.api.dominio.users;
 
 import forum.source.api.dominio.topicos.Topicos;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,8 @@ import java.util.List;
 @Table(name = "users")
 public class UserModel implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String senha;

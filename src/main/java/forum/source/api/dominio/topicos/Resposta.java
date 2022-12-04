@@ -1,9 +1,8 @@
 package forum.source.api.dominio.topicos;
 
-import forum.source.api.dominio.users.UserModel;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 public class Resposta {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titlo;
     private String messagem;

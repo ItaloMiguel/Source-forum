@@ -3,7 +3,6 @@ package forum.source.api.aplicacao.topicos.payload;
 import forum.source.api.dominio.topicos.Resposta;
 import forum.source.api.dominio.topicos.TopicoStatus;
 import forum.source.api.dominio.topicos.Topicos;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;

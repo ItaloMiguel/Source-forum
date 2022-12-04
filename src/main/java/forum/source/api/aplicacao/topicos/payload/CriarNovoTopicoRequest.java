@@ -1,14 +1,7 @@
 package forum.source.api.aplicacao.topicos.payload;
 
-import forum.source.api.dominio.topicos.Resposta;
-import forum.source.api.dominio.topicos.TopicoStatus;
-import forum.source.api.dominio.users.UserModel;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 public record CriarNovoTopicoRequest(
         @NotBlank(message = "Titulo não pode ser vazio")
